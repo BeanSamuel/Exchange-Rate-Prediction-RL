@@ -1,0 +1,42 @@
+experiment: ''
+num_envs: ''
+seed: 42
+torch_deterministic: False
+
+rl_device: 'cpu'
+
+# set the maximum number of learning iterations to train for. overrides default per-environment setting
+max_iterations: ''
+
+# RLGames Arguments
+# test - if set, run policy in inference mode (requires setting checkpoint to load)
+test: False
+# used to set checkpoint path
+checkpoint: ''
+
+# disables rendering
+headless: False
+# enables native livestream
+enable_livestream: False
+# timeout for MT script
+mt_timeout: 30
+
+# set default task and default training config based on task
+defaults:
+  - task: Noob
+  - train: ${task}PPO
+  - hydra/job_logging: disabled
+
+# set the directory where the output files get saved
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+render: False
+debug: False
+wandb: True
+save: True
+profile: False
+
+test_data: ''

@@ -1,0 +1,13 @@
+# used to create the object
+name: Noob
+
+# if given, will override the device setting in gym.
+env:
+  num_envs: ${resolve_default:1,${...num_envs}}
+  train_data: './train.csv'
+  test_data: ${resolve_default:'./test.csv',${...test_data}}
+  window_size: 10
+#  frame_bound: [100, 1000]
+  frame_bound: [1850, 2850]
+#  frame_bound: [10, 800]
+#

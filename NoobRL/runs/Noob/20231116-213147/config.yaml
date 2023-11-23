@@ -1,0 +1,58 @@
+task:
+  name: Noob
+  env:
+    num_envs: ${resolve_default:1,${...num_envs}}
+    train_data: ./train.csv
+    test_data: ${resolve_default:'./test.csv',${...test_data}}
+    window_size: 10
+    frame_bound:
+    - 1850
+    - 2850
+train:
+  name: PPOAgent
+  params:
+    seed: ${...seed}
+    model:
+      actor_mlp:
+      - 256
+      - 256
+      critic_mlp:
+      - 256
+      - 256
+    load_checkpoint: ${if:${...checkpoint},True,False}
+    load_path: ${...checkpoint}
+    config:
+      device: ${....rl_device}
+      save_frequency: 10
+      normalize_obs: true
+      normalize_value: false
+      normalize_advantage: true
+      horizon_length: 2048
+      max_epochs: ${resolve_default:200,${....max_iterations}}
+      mini_epochs: 6
+      minibatch_size: 512
+      tau: 0.9
+      gamma: 0.9
+      e_clip: 0.2
+      clip_value: false
+      learning_rate: 0.001
+      critic_loss_coef: 1
+      bounds_loss_coef: 10
+      grad_penalty_coef: 0
+experiment: ''
+num_envs: ''
+seed: 42
+torch_deterministic: false
+rl_device: cpu
+max_iterations: ''
+test: false
+checkpoint: ''
+headless: false
+enable_livestream: false
+mt_timeout: 30
+render: false
+debug: false
+wandb: true
+save: true
+profile: false
+test_data: ''
